@@ -1,10 +1,6 @@
-import {
-  Folder,
-  Forward,
-  MoreHorizontal,
-  Trash2,
-  type LucideIcon,
-} from "lucide-react"
+"use client"
+
+import { Folder, Forward, MoreHorizontal, Trash2, type LucideIcon } from "lucide-react"
 
 import {
   DropdownMenu,
@@ -48,7 +44,13 @@ export function NavProjects({
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuAction showOnHover>
+                <SidebarMenuAction
+                  showOnHover
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                  }}
+                >
                   <MoreHorizontal />
                   <span className="sr-only">More</span>
                 </SidebarMenuAction>
@@ -58,16 +60,16 @@ export function NavProjects({
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => console.log("View Project")}>
                   <Folder className="text-muted-foreground" />
                   <span>View Project</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => console.log("Share Project")}>
                   <Forward className="text-muted-foreground" />
                   <span>Share Project</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => console.log("Delete Project")}>
                   <Trash2 className="text-muted-foreground" />
                   <span>Delete Project</span>
                 </DropdownMenuItem>

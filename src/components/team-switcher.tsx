@@ -41,9 +41,12 @@ export function TeamSwitcher({
             <SidebarMenuButton
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              onClick={(e) => {
+                e.preventDefault()
+              }}
             >
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <activeTeam.logo className="size-4" />
+               {activeTeam.logo && <activeTeam.logo className="size-4" />}
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{activeTeam.name}</span>
@@ -64,18 +67,21 @@ export function TeamSwitcher({
             {teams.map((team, index) => (
               <DropdownMenuItem
                 key={team.name}
-                onClick={() => setActiveTeam(team)}
+                 onClick={() => {
+                  setActiveTeam(team)
+                  console.log("Selected team:", team.name)
+                }}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">
-                  <team.logo className="size-3.5 shrink-0" />
+                   {team.logo && <team.logo className="size-3.5 shrink-0" />}
                 </div>
                 {team.name}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
+             <DropdownMenuItem className="gap-2 p-2" onClick={() => console.log("Add team")}>
               <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
                 <Plus className="size-4" />
               </div>

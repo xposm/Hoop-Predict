@@ -27,9 +27,9 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "少比唐德",
+    email: "tonder@example.com",
+    avatar: "src/assets/PAR-Andries-VT-1200x720.jpg.jpeg",
   },
   teams: [
     {
@@ -56,34 +56,34 @@ const data = {
       isActive: true,
       items: [
         {
+          title: "Ongoing",
+          url: "#",
+        },
+        {
           title: "History",
           url: "#",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
+          title: "Placeholder",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Model",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
+          title: "Documentation",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Placeholder",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "Placeholder",
           url: "#",
         },
       ],
@@ -98,11 +98,11 @@ const data = {
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Placeholder",
           url: "#",
         },
         {
-          title: "Tutorials",
+          title: "Placeholder",
           url: "#",
         },
         {
@@ -121,15 +121,15 @@ const data = {
           url: "#",
         },
         {
-          title: "Team",
+          title: "Model",
           url: "#",
         },
         {
-          title: "Billing",
+          title: "Placeholder",
           url: "#",
         },
         {
-          title: "Limits",
+          title: "Placeholder",
           url: "#",
         },
       ],
