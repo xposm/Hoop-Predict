@@ -1,6 +1,8 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { ComboboxDemo } from "@/components/combobox"
 
+import { CommandDialogDemo} from "@/components/popover-command.tsx"
+
 import {
   SidebarInset,
   SidebarProvider,
@@ -18,10 +20,11 @@ export default function Page() {
            
           </div>
         </header>
+        <CommandDialogDemo />
         <div className="flex flex-1 items-center justify-center">
           <ComboboxDemo />
         </div>
-
+        
         </SidebarInset>
       
     </SidebarProvider>
