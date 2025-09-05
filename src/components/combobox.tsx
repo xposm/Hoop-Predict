@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
-
+import Papa from "papaparse"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -19,32 +19,21 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
 
 export function ComboboxDemo() {
+  const [frameworks, setFrameworks] = React.useState<{ label: string; value: string }[]>([])
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
+
+    React.useEffect(() => {
+    fetch("/final_team_selection.csv")
+      .then((response) => response.text())
+      .then((csvText) => {
+        const result = Papa.parse(csvText, { header: true })
+        console.log("Parsed CSV:", result.data)
+        setFrameworks(result.data as { label: string; value: string }[])
+      })
+  }, [])
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
