@@ -11,7 +11,7 @@ export function GoHome() {
   const navigate = useNavigate()
 
   const handleNavigation = () => {
-    navigate("/main") // Replace "/mainpage" with your actual route
+    navigate("/firstTeam") // Replace "/mainpage" with your actual route
   }
 
   return (
