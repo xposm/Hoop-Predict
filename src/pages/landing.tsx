@@ -11,12 +11,12 @@ export default function WelcomePage() {
   const handleNavigation = () => {
     setTransitioning(true);
     setTimeout(() => {
-      navigate("/main");
-    }, 750); // Match the transition duration
+      navigate("/firstTeam");
+    }, 650); // Match the transition duration
   };
 
   return (
-    <div className={`flex min-h-screen ${transitioning ? 'transition-all duration-750 ease-in-out' : ''}`}>
+    <div className={`flex min-h-screen ${transitioning ? 'transition-all duration-650 ease-in-out' : ''}`}>
       <div
         className={`flex-1 bg-cover bg-center bg-no-repeat relative transition-opacity duration-750 ease-in-out ${transitioning ? 'opacity-0' : 'opacity-100'}`}
         style={{
