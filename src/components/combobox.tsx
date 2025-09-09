@@ -21,7 +21,7 @@ import {
 
 
 export function ComboboxDemo() {
-  const [frameworks, setFrameworks] = React.useState<{ label: string; value: string }[]>([])
+  const [teams, setTeams] = React.useState<{ label: string; value: string }[]>([])
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -31,7 +31,7 @@ export function ComboboxDemo() {
       .then((csvText) => {
         const result = Papa.parse(csvText, { header: true })
         console.log("Parsed CSV:", result.data)
-        setFrameworks(result.data as { label: string; value: string }[])
+        setTeams(result.data as { label: string; value: string }[])
       })
   }, [])
 
@@ -42,34 +42,34 @@ export function ComboboxDemo() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[500px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
+            ? teams.find((team) => team.value === value)?.label
             : "Select team..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[500px] p-1">
         <Command>
           <CommandInput placeholder="Search teams..." className="h-9" />
           <CommandList>
             <CommandEmpty>No team found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {teams.map((team) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={team.value}
+                  value={team.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
-                  {framework.label}
+                  {team.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      value === team.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
