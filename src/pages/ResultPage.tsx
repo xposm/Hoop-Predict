@@ -1,12 +1,17 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-type ModelPrediction = { name: string; probability: number; };
-type MatchPrediction = { teamA: string; teamB: string; modelsA: ModelPrediction[]; modelsB: ModelPrediction[]; };
+type ModelPrediction = { name: string; probability: number };
+type MatchPrediction = {
+    teamA: string;
+    teamB: string;
+    modelsA: ModelPrediction[];
+    modelsB: ModelPrediction[];
+};
 
 const horizontalScale = 1.5;
-const verticalScale = 1.2;
-const verticalOffset = -50;
+const verticalScale = 0.7;
+const verticalOffset = 40;
 
 export default function ResultPage() {
     const location = useLocation();
@@ -57,9 +62,16 @@ export default function ResultPage() {
                     backgroundColor: "rgba(255, 255, 255, 0.85)",
                     textAlign: "center",
                     transform: `translateY(${verticalOffset}px)`,
+                    color: "#000", // All text inside black
                 }}
             >
-                <h1 style={{ marginBottom: `${2 * verticalScale}rem`, fontSize: `${1.5 * verticalScale}rem` }}>
+                <h1
+                    style={{
+                        marginBottom: `${2 * verticalScale}rem`,
+                        fontSize: `${1.5 * verticalScale}rem`,
+                        color: "#000",
+                    }}
+                >
                     Prediction Result
                 </h1>
 
@@ -69,27 +81,75 @@ export default function ResultPage() {
                     const average = calculateAverage(models);
 
                     return (
-                        <div key={team} style={{ marginBottom: `${2 * verticalScale}rem` }}>
-                            <h2 style={{ marginBottom: `${0.5 * verticalScale}rem` }}>{team}</h2>
+                        <div key={team} style={{ marginBottom: `${2 * verticalScale}rem`, color: "#000" }}>
+                            <h2 style={{ marginBottom: `${0.5 * verticalScale}rem`, color: "#000" }}>{team}</h2>
 
                             {/* Overall probability */}
-                            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: `${0.5 * verticalScale}rem`, fontSize: `${1 * verticalScale}rem`, fontWeight: "bold" }}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginBottom: `${0.5 * verticalScale}rem`,
+                                    fontSize: `${1 * verticalScale}rem`,
+                                    fontWeight: "bold",
+                                    color: "#000",
+                                }}
+                            >
                                 <span>Overall</span>
                                 <span>{average}%</span>
                             </div>
-                            <div style={{ background: "#ccc", borderRadius: `${4 * verticalScale}px`, height: `${20 * verticalScale}px`, width: "100%", marginBottom: `${1 * verticalScale}rem` }}>
-                                <div style={{ width: `${average}%`, background: color, height: "100%", borderRadius: `${4 * verticalScale}px`, transition: "width 0.5s ease-in-out" }} />
+                            <div
+                                style={{
+                                    background: "#ccc",
+                                    borderRadius: `${4 * verticalScale}px`,
+                                    height: `${20 * verticalScale}px`,
+                                    width: "100%",
+                                    marginBottom: `${1 * verticalScale}rem`,
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: `${average}%`,
+                                        background: color,
+                                        height: "100%",
+                                        borderRadius: `${4 * verticalScale}px`,
+                                        transition: "width 0.5s ease-in-out",
+                                    }}
+                                />
                             </div>
 
                             {/* Individual models */}
                             {models.map((model) => (
-                                <div key={model.name} style={{ marginBottom: `${0.5 * verticalScale}rem` }}>
-                                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: `${0.3 * verticalScale}rem`, fontSize: `${1 * verticalScale}rem` }}>
+                                <div key={model.name} style={{ marginBottom: `${0.5 * verticalScale}rem`, color: "#000" }}>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            marginBottom: `${0.3 * verticalScale}rem`,
+                                            fontSize: `${1 * verticalScale}rem`,
+                                            color: "#000",
+                                        }}
+                                    >
                                         <span>{model.name}</span>
                                         <span>{model.probability}%</span>
                                     </div>
-                                    <div style={{ background: "#eee", borderRadius: `${4 * verticalScale}px`, height: `${20 * verticalScale}px`, width: "100%" }}>
-                                        <div style={{ width: `${model.probability}%`, background: color, height: "100%", borderRadius: `${4 * verticalScale}px`, transition: "width 0.5s ease-in-out" }} />
+                                    <div
+                                        style={{
+                                            background: "#eee",
+                                            borderRadius: `${4 * verticalScale}px`,
+                                            height: `${20 * verticalScale}px`,
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                width: `${model.probability}%`,
+                                                background: color,
+                                                height: "100%",
+                                                borderRadius: `${4 * verticalScale}px`,
+                                                transition: "width 0.5s ease-in-out",
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             ))}
