@@ -31,13 +31,18 @@ export default function FirstTeam() {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleTeamASelect = (value: any) => {
+     const handleTeamASelect = (value: any) => {
         console.log("Team A selected:", value);
         setIsExiting(true);
         setTimeout(() => {
-            navigate("/secondTeam");
+            // Pass the selected team to the next route via state
+            navigate("/secondTeam", { 
+                state: { 
+                    teamOne: value
+                } 
+            });
         }, NAVIGATION_DELAY);
-    }
+    };
 
     const handleNavigation = () => {
         navigate("/")
@@ -95,10 +100,6 @@ export default function FirstTeam() {
                 >
                     <SearchBar onSelect={handleTeamASelect} />
                 </motion.div>
-            </div>
-
-            <div className="absolute bottom-4 right-4">
-                <Button onClick={handleNavigation}>Go Landing</Button>
             </div>
         </motion.div>
     );

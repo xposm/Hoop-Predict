@@ -1,14 +1,24 @@
 {
-  "name": "ncaaui2",
+  "name": "gambling-consultant",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": "Simon & Jimmy",
+  "description": "Predicts win rates based on historical data using machine learning.",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
+  "files": [
+    "dist-electron/**/*",
+    "dist/**/*",
+    "backend/**/*"
+  ],
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-avatar": "^1.1.10",
@@ -23,13 +33,18 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "electron-squirrel-startup": "^1.0.1",
+    "embla-carousel-react": "^8.6.0",
     "form": "^0.2.5",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.539.0",
     "papaparse": "^5.5.3",
+    "pdfjs-dist": "5.3.93",
     "react": "^18.3.1",
+    "react-doc-viewer": "^0.1.14",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.62.0",
+    "react-pdf": "^10.1.0",
     "react-router-dom": "^7.8.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
@@ -38,6 +53,15 @@
     "zod": "^4.0.17"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.9.0",
+    "@electron-forge/maker-deb": "^7.9.0",
+    "@electron-forge/maker-rpm": "^7.9.0",
+    "@electron-forge/maker-squirrel": "^7.9.0",
+    "@electron-forge/maker-zip": "^7.9.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.9.0",
+    "@electron-forge/plugin-fuses": "^7.9.0",
+    "@electron/fuses": "^1.8.0",
+    "@types/electron": "^1.4.38",
     "@types/node": "^24.2.1",
     "@types/papaparse": "^5.3.16",
     "@types/react": "^18.3.23",
@@ -47,7 +71,7 @@
     "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react": "^4.2.1",
     "electron": "^38.0.0",
-    "electron-builder": "^24.13.3",
+    "electron-builder": "^26.0.12",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
@@ -56,6 +80,24 @@
     "vite": "^7.1.4",
     "vite-plugin-electron": "^0.28.6",
     "vite-plugin-electron-renderer": "^0.14.5"
+  },
+  "config": {
+    "forge": {
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "platforms": [
+            "win32"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "win32"
+          ]
+        }
+      ]
+    }
   },
   "main": "dist-electron/main.js"
 }

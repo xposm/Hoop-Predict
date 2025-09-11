@@ -1,21 +1,17 @@
-import tailwindcss from "@tailwindcss/vite"
-import { defineConfig } from 'vite'
-import path from 'node:path'
-import electron from 'vite-plugin-electron/simple'
-import react from '@vitejs/plugin-react'
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite';
+import path from 'node:path';
+import electron from 'vite-plugin-electron/simple';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     electron({
       main: {
-        // Shortcut of `build.lib.entry`.
         entry: 'electron/main.ts',
       },
       preload: {
-        // Shortcut of `build.rollupOptions.input`.
-        // Preload scripts may contain Web assets, so use the `build.rollupOptions.input` instead `build.lib.entry`.
         input: path.join(__dirname, 'electron/preload.ts'),
       },
       // Ployfill the Electron and Node.js API for Renderer process.
@@ -26,10 +22,23 @@ export default defineConfig({
         ? undefined
         : {},
     }),
-    tailwindcss()],
+    tailwindcss(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
+  // Add build configuration here:
+  build: {
+    outDir: 'dist',         // Output directory for your built frontend
+    emptyOutDir: true,      // Clean the output dir before building
+    sourcemap: false,       // Disable sourcemaps for production builds (optional)
+    rollupOptions: {
+      input: path.resolve(__dirname, 'index.html'), // Entry point for the app
+    },
+  },
+  base: './', // Ensure assets are loaded correctly in Electron
 })
+

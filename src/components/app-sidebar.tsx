@@ -21,98 +21,31 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
+import tonder from "@/assets/tonder.jpeg"
 const data = {
   user: {
     name: "少比唐德",
-    email: "tonder@example.com",
-    avatar: "src/assets/tonder.jpeg",
+    email: "你生来就是魔丸",
+    avatar: tonder,
   },
   navMain: [
     {
-      title: "Predictions",
-      url: "#",
+      title: "Results",
+      url: "/resultHistory",
       icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Ongoing",
-          url: "#",
-        },
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Placeholder",
-          url: "#",
-        },
-      ],
+      
     },
-    {
-      title: "Model",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Documentation",
-          url: "#",
-        },
-        {
-          title: "Placeholder",
-          url: "#",
-        },
-        {
-          title: "Placeholder",
-          url: "#",
-        },
-      ],
-    },
+    
     {
       title: "Documentation",
       url: "#",
       icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Placeholder",
-          url: "#",
-        },
-        {
-          title: "Placeholder",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
+      
     },
     {
       title: "Settings",
-      url: "#",
+      url: "/settings",
       icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Model",
-          url: "#",
-        },
-        {
-          title: "Placeholder",
-          url: "#",
-        },
-        {
-          title: "Placeholder",
-          url: "#",
-        },
-      ],
     },
   ],
 }

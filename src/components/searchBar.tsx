@@ -24,39 +24,47 @@ interface SearchBarProps {
 
 export function SearchBar({ onSelect }: SearchBarProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [selectedValue, setSelectedValue] = React.useState("");
   const [search, setSearch] = React.useState("");
   const [teams, setTeams] = React.useState<{ label: string; value: string }[]>([]);
+  const [teamMap, setTeamMap] = React.useState<Map<string, { label: string; value: string }>>(new Map());
   const [loading, setLoading] = React.useState(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  // Load CSV data with PapaParse
+  // Load CSV data and create efficient lookup map
   React.useEffect(() => {
-    fetch("/final_team_selection.csv")
+    fetch("./final_team_selection.csv")
       .then((response) => response.text())
       .then((csvText) => {
         const result = Papa.parse(csvText, { header: true });
-        console.log("Parsed CSV:", result.data);
-        setTeams(result.data as { label: string; value: string }[]);
+        const teamData = result.data as { label: string; value: string }[];
+        
+        // Create Map for O(1) lookups using the pre-processed value column
+        const map = new Map<string, { label: string; value: string }>();
+        teamData.forEach(team => {
+          map.set(team.value, team); // value is already lowercase
+        });
+        
+        setTeams(teamData);
+        setTeamMap(map);
         setLoading(false);
+        console.log("Parsed CSV and created team map:", map);
       })
       .catch((error) => {
         console.error('Error loading team data:', error);
         setTeams([]);
+        setTeamMap(new Map());
         setLoading(false);
       });
   }, []);
 
-  // Filtering logic
-  const filteredTeams = React.useMemo(
-    () =>
-      teams.filter(
-        (team) =>
-          team.label.toLowerCase().includes(search.toLowerCase()) ||
-          team.value.toLowerCase().includes(search.toLowerCase())
-      ),
-    [search, teams]
-  );
+  // Direct lookup instead of filtering - much more efficient!
+  const matchingTeams = React.useMemo(() => {
+    if (!search) return teams;
+    
+    const searchTerm = search.toLowerCase();
+    return teams.filter(team => team.value.includes(searchTerm));
+  }, [search, teams]);
 
   // Close popover when clicking outside
   React.useEffect(() => {
@@ -83,19 +91,16 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setSearch(newValue);
-    
-    // Simple: open if there's input OR if there's a selected value
-    setOpen(newValue.length > 0 || value !== "");
+    setOpen(newValue.length > 0 || selectedValue !== "");
   };
 
   const handleInputFocus = () => {
-    // Always open on focus if there's content to show
-    setOpen(search.length > 0 || value !== "");
+    setOpen(search.length > 0 || selectedValue !== "");
   };
 
   return (
     <div className="w-full max-w-2xl mx-auto relative">
-      <Popover open={open}>  {/* Removed onOpenChange prop */}
+      <Popover open={open}>
         <PopoverTrigger asChild>
           <div className="relative">
             <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
@@ -110,7 +115,7 @@ export function SearchBar({ onSelect }: SearchBarProps) {
             />
           </div>
         </PopoverTrigger>
-        {open && (search.length > 0 || value !== "") && !loading && (
+        {open && (search.length > 0 || selectedValue !== "") && !loading && (
           <PopoverContent 
             className="p-0 mt-2 rounded-lg border shadow-lg z-10"
             align="start"
@@ -121,17 +126,19 @@ export function SearchBar({ onSelect }: SearchBarProps) {
               <CommandList className="max-h-72">
                 <CommandEmpty>No teams found.</CommandEmpty>
                 <CommandGroup>
-                  {filteredTeams.map((team) => (
+                  {matchingTeams.map((team) => (
                     <CommandItem
                       key={team.value}
                       value={team.value}
                       onSelect={(currentValue) => {
-                        const selectedTeam = teams.find(t => t.value === currentValue);
+                        // Direct Map lookup - O(1) instead of O(n)!
+                        const selectedTeam = teamMap.get(currentValue);
                         if (selectedTeam) {
-                          setValue(currentValue === value ? "" : currentValue);
+                          setSelectedValue(currentValue === selectedValue ? "" : currentValue);
                           setSearch(selectedTeam.label);
-                          onSelect(currentValue);
-                          setOpen(false);  // Explicit close
+                          // Return the properly capitalized label for Python script
+                          onSelect(selectedTeam.label);
+                          setOpen(false);
                         }
                       }}
                       className="cursor-pointer py-3 px-4 text-base"

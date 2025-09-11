@@ -1,3 +1,4 @@
+console.log('=== PRELOAD SCRIPT LOADING ===');
 import { ipcRenderer, contextBridge } from 'electron'
 
 // --------- Expose some API to the Renderer process ---------
@@ -22,3 +23,20 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   // You can expose other APTs you need here.
   // ...
 })
+
+// Create a unique API key just for your prediction function
+contextBridge.exposeInMainWorld('ncaaAPI', {
+  predictTeams: (teamOne: string, teamTwo: string): Promise<any> => 
+    ipcRenderer.invoke('predict-teams', teamOne, teamTwo)
+})
+
+// Simple type declaration for the unique API
+declare global {
+  interface Window {
+    ncaaAPI: {
+      predictTeams: (teamOne: string, teamTwo: string) => Promise<any>
+    }
+  }
+}
+
+console.log('=== PRELOAD API EXPOSED ===');
