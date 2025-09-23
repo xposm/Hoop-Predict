@@ -4,6 +4,8 @@ Prerequisites:
 Node.js (v18 or higher)
 npm
 
+**Currently the inference python code is not hosted on github.**
+
 Installation:
 1. Clone this repository
     -git clone https://github.com/xposm/ncaaUI2
