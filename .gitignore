@@ -11,8 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
-backend/
 release/
+electron-builder.json5
+forge.config.js
 
 # Editor directories and files
 .vscode/*
