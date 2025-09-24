@@ -1,23 +1,42 @@
-A React based desktop application for NCAA basketball match outcome prediction, built with electron.
+## Prerequisites
 
-Prerequisites:
-Node.js (v18 or higher)
-npm
+Before starting, ensure you have the following installed on your system:
 
-**Currently the inference python code is not hosted on github.**
+- **Git Large File Storage (Git LFS)**  
+  This project uses Git LFS to manage large files. To clone and work with the repository correctly, Git LFS must be installed on your machine.
 
-Installation:
-1. Clone this repository
-    -git clone https://github.com/xposm/ncaaUI2
-    -cd NCAAui2
-    -npm install
-2. Install required packages:
-    -npm install react react-dom react-router-dom
-    -npm install @types/react @types/react-dom typescript
-    -npm install tailwindcss @tailwindcss/typography
-    -npm install framer-motion lucide-react
-    -npm install --save-dev electron vite @vitejs/plugin-react
-    -npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
-    
-To start a development server:
-  -npm run dev
+  ### Install Git LFS
+  -Download and run the installer from [https://git-lfs.github.com](https://git-lfs.github.com) or use Chocolatey:  
+    ```
+    choco install git-lfs
+    ```
+
+  After installation, run the following command once per repository to set up Git LFS hooks:
+   ```
+   git lfs install
+   ```
+
+- **Node.js 18 or newer (includes npm)**  
+This project requires Node.js version 18 or higher. [Download Node.js](https://nodejs.org/) if you don't have it installed.
+
+
+## Getting Started
+
+1. **Clone the repository:**
+ ```
+ git clone https://github.com/xposm/ncaaUI2
+ cd <this-repository>
+ ```
+> If errors occur during cloning, please check if it is Git LFS related, and make sure to have it set up correctly.
+
+2. **Install Vite and other dependencies:**
+Install dependencies via npm:
+ ```
+ npm install
+ ```
+
+4. **Run the development server:**
+You can now start the Vite dev server with:
+ ```
+ npm run dev
+ ```
