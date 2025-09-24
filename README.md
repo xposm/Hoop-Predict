@@ -30,7 +30,6 @@ This project requires Node.js version 18 or higher. [Download Node.js](https://n
 > If errors occur during cloning, please check if it is Git LFS related, and make sure to have it set up correctly.
 
 2. **Install Vite and other dependencies:**
-Install dependencies via npm:
  ```
  npm install
  ```
