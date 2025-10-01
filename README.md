@@ -11,11 +11,6 @@ Before starting, ensure you have the following installed on your system:
     choco install git-lfs
     ```
 
-  After installation, run the following command once per repository to set up Git LFS hooks:
-   ```
-   git lfs install
-   ```
-
 - **Node.js 18 or newer (includes npm)**  
 This project requires Node.js version 18 or higher. [Download Node.js](https://nodejs.org/) if you don't have it installed.
 
