@@ -1,0 +1,500 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "0ab7a116",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T00:13:59.482322Z",
+     "iopub.status.busy": "2024-04-18T00:13:59.479969Z",
+     "iopub.status.idle": "2024-04-18T00:14:00.768429Z",
+     "shell.execute_reply": "2024-04-18T00:14:00.766244Z"
+    },
+    "papermill": {
+     "duration": 1.297069,
+     "end_time": "2024-04-18T00:14:00.771185",
+     "exception": false,
+     "start_time": "2024-04-18T00:13:59.474116",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "── \u001b[1mAttaching core tidyverse packages\u001b[22m ──────────────────────── tidyverse 2.0.0 ──\n",
+      "\u001b[32m✔\u001b[39m \u001b[34mdplyr    \u001b[39m 1.1.4     \u001b[32m✔\u001b[39m \u001b[34mreadr    \u001b[39m 2.1.4\n",
+      "\u001b[32m✔\u001b[39m \u001b[34mforcats  \u001b[39m 1.0.0     \u001b[32m✔\u001b[39m \u001b[34mstringr  \u001b[39m 1.5.1\n",
+      "\u001b[32m✔\u001b[39m \u001b[34mggplot2  \u001b[39m 3.4.4     \u001b[32m✔\u001b[39m \u001b[34mtibble   \u001b[39m 3.2.1\n",
+      "\u001b[32m✔\u001b[39m \u001b[34mlubridate\u001b[39m 1.9.3     \u001b[32m✔\u001b[39m \u001b[34mtidyr    \u001b[39m 1.3.0\n",
+      "\u001b[32m✔\u001b[39m \u001b[34mpurrr    \u001b[39m 1.0.2     \n",
+      "── \u001b[1mConflicts\u001b[22m ────────────────────────────────────────── tidyverse_conflicts() ──\n",
+      "\u001b[31m✖\u001b[39m \u001b[34mdplyr\u001b[39m::\u001b[32mfilter()\u001b[39m masks \u001b[34mstats\u001b[39m::filter()\n",
+      "\u001b[31m✖\u001b[39m \u001b[34mdplyr\u001b[39m::\u001b[32mlag()\u001b[39m    masks \u001b[34mstats\u001b[39m::lag()\n",
+      "\u001b[36mℹ\u001b[39m Use the conflicted package (\u001b[3m\u001b[34m<http://conflicted.r-lib.org/>\u001b[39m\u001b[23m) to force all conflicts to become errors\n"
+     ]
+    }
+   ],
+   "source": [
+    "library(tidyverse)\n",
+    "library(progress)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "2193e897",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T00:14:00.812223Z",
+     "iopub.status.busy": "2024-04-18T00:14:00.779277Z",
+     "iopub.status.idle": "2024-04-18T00:14:01.932085Z",
+     "shell.execute_reply": "2024-04-18T00:14:01.930108Z"
+    },
+    "papermill": {
+     "duration": 1.160585,
+     "end_time": "2024-04-18T00:14:01.934859",
+     "exception": false,
+     "start_time": "2024-04-18T00:14:00.774274",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1mRows: \u001b[22m\u001b[34m2451\u001b[39m \u001b[1mColumns: \u001b[22m\u001b[34m8\u001b[39m\n",
+      "\u001b[36m──\u001b[39m \u001b[1mColumn specification\u001b[22m \u001b[36m────────────────────────────────────────────────────────\u001b[39m\n",
+      "\u001b[1mDelimiter:\u001b[22m \",\"\n",
+      "\u001b[31mchr\u001b[39m (1): WLoc\n",
+      "\u001b[32mdbl\u001b[39m (7): Season, DayNum, WTeamID, WScore, LTeamID, LScore, NumOT\n",
+      "\n",
+      "\u001b[36mℹ\u001b[39m Use `spec()` to retrieve the full column specification for this data.\n",
+      "\u001b[36mℹ\u001b[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.\n",
+      "\u001b[1mRows: \u001b[22m\u001b[34m187289\u001b[39m \u001b[1mColumns: \u001b[22m\u001b[34m8\u001b[39m\n",
+      "\u001b[36m──\u001b[39m \u001b[1mColumn specification\u001b[22m \u001b[36m────────────────────────────────────────────────────────\u001b[39m\n",
+      "\u001b[1mDelimiter:\u001b[22m \",\"\n",
+      "\u001b[31mchr\u001b[39m (1): WLoc\n",
+      "\u001b[32mdbl\u001b[39m (7): Season, DayNum, WTeamID, WScore, LTeamID, LScore, NumOT\n",
+      "\n",
+      "\u001b[36mℹ\u001b[39m Use `spec()` to retrieve the full column specification for this data.\n",
+      "\u001b[36mℹ\u001b[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.\n",
+      "\u001b[1mRows: \u001b[22m\u001b[34m1756\u001b[39m \u001b[1mColumns: \u001b[22m\u001b[34m9\u001b[39m\n",
+      "\u001b[36m──\u001b[39m \u001b[1mColumn specification\u001b[22m \u001b[36m────────────────────────────────────────────────────────\u001b[39m\n",
+      "\u001b[1mDelimiter:\u001b[22m \",\"\n",
+      "\u001b[31mchr\u001b[39m (2): WLoc, SecondaryTourney\n",
+      "\u001b[32mdbl\u001b[39m (7): Season, DayNum, WTeamID, WScore, LTeamID, LScore, NumOT\n",
+      "\n",
+      "\u001b[36mℹ\u001b[39m Use `spec()` to retrieve the full column specification for this data.\n",
+      "\u001b[36mℹ\u001b[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.\n",
+      "\u001b[1mRows: \u001b[22m\u001b[34m378\u001b[39m \u001b[1mColumns: \u001b[22m\u001b[34m4\u001b[39m\n",
+      "\u001b[36m──\u001b[39m \u001b[1mColumn specification\u001b[22m \u001b[36m────────────────────────────────────────────────────────\u001b[39m\n",
+      "\u001b[1mDelimiter:\u001b[22m \",\"\n",
+      "\u001b[31mchr\u001b[39m (1): TeamName\n",
+      "\u001b[32mdbl\u001b[39m (3): TeamID, FirstD1Season, LastD1Season\n",
+      "\n",
+      "\u001b[36mℹ\u001b[39m Use `spec()` to retrieve the full column specification for this data.\n",
+      "\u001b[36mℹ\u001b[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.\n",
+      "\u001b[1mRows: \u001b[22m\u001b[34m1583\u001b[39m \u001b[1mColumns: \u001b[22m\u001b[34m8\u001b[39m\n",
+      "\u001b[36m──\u001b[39m \u001b[1mColumn specification\u001b[22m \u001b[36m────────────────────────────────────────────────────────\u001b[39m\n",
+      "\u001b[1mDelimiter:\u001b[22m \",\"\n",
+      "\u001b[31mchr\u001b[39m (1): WLoc\n",
+      "\u001b[32mdbl\u001b[39m (7): Season, DayNum, WTeamID, WScore, LTeamID, LScore, NumOT\n",
+      "\n",
+      "\u001b[36mℹ\u001b[39m Use `spec()` to retrieve the full column specification for this data.\n",
+      "\u001b[36mℹ\u001b[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.\n",
+      "\u001b[1mRows: \u001b[22m\u001b[34m131587\u001b[39m \u001b[1mColumns: \u001b[22m\u001b[34m8\u001b[39m\n",
+      "\u001b[36m──\u001b[39m \u001b[1mColumn specification\u001b[22m \u001b[36m────────────────────────────────────────────────────────\u001b[39m\n",
+      "\u001b[1mDelimiter:\u001b[22m \",\"\n",
+      "\u001b[31mchr\u001b[39m (1): WLoc\n",
+      "\u001b[32mdbl\u001b[39m (7): Season, DayNum, WTeamID, WScore, LTeamID, LScore, NumOT\n",
+      "\n",
+      "\u001b[36mℹ\u001b[39m Use `spec()` to retrieve the full column specification for this data.\n",
+      "\u001b[36mℹ\u001b[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.\n",
+      "\u001b[1mRows: \u001b[22m\u001b[34m376\u001b[39m \u001b[1mColumns: \u001b[22m\u001b[34m2\u001b[39m\n",
+      "\u001b[36m──\u001b[39m \u001b[1mColumn specification\u001b[22m \u001b[36m────────────────────────────────────────────────────────\u001b[39m\n",
+      "\u001b[1mDelimiter:\u001b[22m \",\"\n",
+      "\u001b[31mchr\u001b[39m (1): TeamName\n",
+      "\u001b[32mdbl\u001b[39m (1): TeamID\n",
+      "\n",
+      "\u001b[36mℹ\u001b[39m Use `spec()` to retrieve the full column specification for this data.\n",
+      "\u001b[36mℹ\u001b[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.\n"
+     ]
+    }
+   ],
+   "source": [
+    "result_tourney_mens <- read_csv(\"/kaggle/input/march-machine-learning-mania-2024/MNCAATourneyCompactResults.csv\")\n",
+    "result_regular_mens <- read_csv(\"/kaggle/input/march-machine-learning-mania-2024/MRegularSeasonCompactResults.csv\")\n",
+    "result_tourney_2nd_mens <- read_csv(\"/kaggle/input/march-machine-learning-mania-2024/MSecondaryTourneyCompactResults.csv\") %>% select(-SecondaryTourney)\n",
+    "teams_mens <- read_csv(\"/kaggle/input/march-machine-learning-mania-2024/MTeams.csv\")\n",
+    "\n",
+    "result_tourney_womens <- read_csv(\"/kaggle/input/march-machine-learning-mania-2024/WNCAATourneyCompactResults.csv\")\n",
+    "result_regular_womens <- read_csv(\"/kaggle/input/march-machine-learning-mania-2024/WRegularSeasonCompactResults.csv\")\n",
+    "teams_womens <- read_csv(\"/kaggle/input/march-machine-learning-mania-2024/WTeams.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "a95bc023",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T00:14:01.947136Z",
+     "iopub.status.busy": "2024-04-18T00:14:01.945518Z",
+     "iopub.status.idle": "2024-04-18T00:14:02.545913Z",
+     "shell.execute_reply": "2024-04-18T00:14:02.543930Z"
+    },
+    "papermill": {
+     "duration": 0.609226,
+     "end_time": "2024-04-18T00:14:02.548490",
+     "exception": false,
+     "start_time": "2024-04-18T00:14:01.939264",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "result_regular_mens <- result_regular_mens %>% mutate(type = \"regular\")\n",
+    "result_tourney_mens <- result_tourney_mens %>% mutate(type = \"tourney\")\n",
+    "result_tourney_2nd_mens <- result_tourney_2nd_mens %>% mutate(type = \"tourney_2nd\")\n",
+    "\n",
+    "result_merged_mens <- bind_rows(result_regular_mens, result_tourney_mens, result_tourney_2nd_mens) %>% \n",
+    "  arrange(Season, DayNum) %>% \n",
+    "  mutate(\n",
+    "    WRating_before = 50,\n",
+    "    LRating_before = 50,\n",
+    "    WRating_after = 50,\n",
+    "    LRating_after = 50\n",
+    "  )\n",
+    "\n",
+    "result_regular_womens <- result_regular_womens %>% mutate(type = \"regular\")\n",
+    "result_tourney_womens <- result_tourney_womens %>% mutate(type = \"tourney\")\n",
+    "\n",
+    "result_merged_womens <- bind_rows(result_regular_womens, result_tourney_womens) %>% \n",
+    "  arrange(Season, DayNum) %>% \n",
+    "  mutate(\n",
+    "    WRating_before = 50,\n",
+    "    LRating_before = 50,\n",
+    "    WRating_after = 50,\n",
+    "    LRating_after = 50\n",
+    "  )"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "a0354ff2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T00:14:02.561021Z",
+     "iopub.status.busy": "2024-04-18T00:14:02.559471Z",
+     "iopub.status.idle": "2024-04-18T00:14:02.577425Z",
+     "shell.execute_reply": "2024-04-18T00:14:02.575684Z"
+    },
+    "papermill": {
+     "duration": 0.027088,
+     "end_time": "2024-04-18T00:14:02.579918",
+     "exception": false,
+     "start_time": "2024-04-18T00:14:02.552830",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "update_elo_rating_mens <- function(df, teams, K) {\n",
+    "  \n",
+    "  n <- nrow(df)\n",
+    "  pb <- progress_bar$new(total = n)\n",
+    "  \n",
+    "  for (i in 1:n) {\n",
+    "    \n",
+    "    WTeamID = df[i,3] %>% as.numeric()\n",
+    "    LTeamID = df[i,5] %>% as.numeric()\n",
+    "    \n",
+    "    WTeamRating_before <- teams %>% filter(TeamID == WTeamID) %>% select(Rating) %>% as.numeric()\n",
+    "    LTeamRating_before <- teams %>% filter(TeamID == LTeamID) %>% select(Rating) %>% as.numeric()\n",
+    "    WTeam_num <- teams %>% filter(TeamID == WTeamID) %>% select(num) %>% as.numeric()\n",
+    "    LTeam_num <- teams %>% filter(TeamID == LTeamID) %>% select(num) %>% as.numeric()\n",
+    "    \n",
+    "    WTeamRating_after <- WTeamRating_before + K*(1/(10^((WTeamRating_before-LTeamRating_before)/10)+1))\n",
+    "    LTeamRating_after <- LTeamRating_before - K*(1/(10^((WTeamRating_before-LTeamRating_before)/10)+1))\n",
+    "    \n",
+    "    df[i,10] <- WTeamRating_before\n",
+    "    df[i,11] <- LTeamRating_before\n",
+    "    df[i,12] <- WTeamRating_after\n",
+    "    df[i,13] <- LTeamRating_after\n",
+    "    \n",
+    "    teams[WTeam_num,5] <- WTeamRating_after\n",
+    "    teams[LTeam_num,5] <- LTeamRating_after\n",
+    "    \n",
+    "    pb$tick()\n",
+    "  }\n",
+    "  \n",
+    "  return(df)\n",
+    "}\n",
+    "\n",
+    "update_elo_rating_womens <- function(df, teams, K) {\n",
+    "  \n",
+    "  n <- nrow(df)\n",
+    "  pb <- progress_bar$new(total = n)\n",
+    "  \n",
+    "  for (i in 1:n) {\n",
+    "    \n",
+    "    WTeamID = df[i,3] %>% as.numeric()\n",
+    "    LTeamID = df[i,5] %>% as.numeric()\n",
+    "    \n",
+    "    WTeamRating_before <- teams %>% filter(TeamID == WTeamID) %>% select(Rating) %>% as.numeric()\n",
+    "    LTeamRating_before <- teams %>% filter(TeamID == LTeamID) %>% select(Rating) %>% as.numeric()\n",
+    "    WTeam_num <- teams %>% filter(TeamID == WTeamID) %>% select(num) %>% as.numeric()\n",
+    "    LTeam_num <- teams %>% filter(TeamID == LTeamID) %>% select(num) %>% as.numeric()\n",
+    "    \n",
+    "    WTeamRating_after <- WTeamRating_before + K*(1/(10^((WTeamRating_before-LTeamRating_before)/10)+1))\n",
+    "    LTeamRating_after <- LTeamRating_before - K*(1/(10^((WTeamRating_before-LTeamRating_before)/10)+1))\n",
+    "    \n",
+    "    df[i,10] <- WTeamRating_before\n",
+    "    df[i,11] <- LTeamRating_before\n",
+    "    df[i,12] <- WTeamRating_after\n",
+    "    df[i,13] <- LTeamRating_after\n",
+    "    \n",
+    "    teams[WTeam_num,3] <- WTeamRating_after\n",
+    "    teams[LTeam_num,3] <- LTeamRating_after\n",
+    "    \n",
+    "    pb$tick()\n",
+    "  }\n",
+    "    \n",
+    "  return(df)\n",
+    "}"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "bd5cacd2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T00:14:02.593020Z",
+     "iopub.status.busy": "2024-04-18T00:14:02.591338Z",
+     "iopub.status.idle": "2024-04-18T02:21:26.974884Z",
+     "shell.execute_reply": "2024-04-18T02:21:26.972742Z"
+    },
+    "papermill": {
+     "duration": 7644.394533,
+     "end_time": "2024-04-18T02:21:26.978797",
+     "exception": false,
+     "start_time": "2024-04-18T00:14:02.584264",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "K <- 1\n",
+    "\n",
+    "teams_add_mens <- teams_mens %>% mutate(Rating = 50, num = row_number())\n",
+    "teams_add_womens <- teams_womens %>% mutate(Rating = 50, num = row_number())\n",
+    "\n",
+    "res_mens <- update_elo_rating_mens(result_merged_mens, teams_add_mens, K)\n",
+    "res_womens <- update_elo_rating_womens(result_merged_womens, teams_add_womens, K)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "1da7dc55",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T02:21:27.589859Z",
+     "iopub.status.busy": "2024-04-18T02:21:27.588156Z",
+     "iopub.status.idle": "2024-04-18T02:21:28.116527Z",
+     "shell.execute_reply": "2024-04-18T02:21:28.114774Z"
+    },
+    "papermill": {
+     "duration": 1.133809,
+     "end_time": "2024-04-18T02:21:28.119314",
+     "exception": false,
+     "start_time": "2024-04-18T02:21:26.985505",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1m\u001b[22m`summarise()` has grouped output by 'Season'. You can override using the\n",
+      "`.groups` argument.\n"
+     ]
+    }
+   ],
+   "source": [
+    "res_regular <- res_mens %>% filter(type == \"regular\")\n",
+    "\n",
+    "tmp <- res_regular %>% select(Season, DayNum, WTeamID, WRating_before, WRating_after) %>% rename(TeamID = WTeamID, Rating_before = WRating_before, Rating_after = WRating_after)\n",
+    "tmp2 <- res_regular %>% select(Season, DayNum, LTeamID, LRating_before, LRating_after) %>% rename(TeamID = LTeamID, Rating_before = LRating_before, Rating_after = LRating_after)\n",
+    "\n",
+    "tmp3 <- bind_rows(tmp, tmp2)\n",
+    "\n",
+    "tmp4 <- tmp3 %>% group_by(Season, TeamID) %>% summarise(DayNum = max(DayNum))\n",
+    "\n",
+    "elo_mens <- tmp3 %>% \n",
+    "  inner_join(tmp4, by = c(\"Season\", \"TeamID\", \"DayNum\")) %>% \n",
+    "  filter(Season >= 2010) %>% \n",
+    "  select(TeamID, Rating_after, Season) %>% \n",
+    "  rename(Rating = Rating_after) %>% \n",
+    "  left_join(teams_mens, by = c(\"TeamID\")) %>% \n",
+    "  select(TeamID, TeamName, Season, Rating)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "b8c6ac3a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T02:21:28.134110Z",
+     "iopub.status.busy": "2024-04-18T02:21:28.132580Z",
+     "iopub.status.idle": "2024-04-18T02:21:28.592483Z",
+     "shell.execute_reply": "2024-04-18T02:21:28.590520Z"
+    },
+    "papermill": {
+     "duration": 0.47101,
+     "end_time": "2024-04-18T02:21:28.594988",
+     "exception": false,
+     "start_time": "2024-04-18T02:21:28.123978",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1m\u001b[22m`summarise()` has grouped output by 'Season'. You can override using the\n",
+      "`.groups` argument.\n"
+     ]
+    }
+   ],
+   "source": [
+    "res_regular <- res_womens %>% filter(type == \"regular\")\n",
+    "\n",
+    "tmp <- res_regular %>% select(Season, DayNum, WTeamID, WRating_before, WRating_after) %>% rename(TeamID = WTeamID, Rating_before = WRating_before, Rating_after = WRating_after)\n",
+    "tmp2 <- res_regular %>% select(Season, DayNum, LTeamID, LRating_before, LRating_after) %>% rename(TeamID = LTeamID, Rating_before = LRating_before, Rating_after = LRating_after)\n",
+    "\n",
+    "tmp3 <- bind_rows(tmp, tmp2)\n",
+    "\n",
+    "tmp4 <- tmp3 %>% group_by(Season, TeamID) %>% summarise(DayNum = max(DayNum))\n",
+    "\n",
+    "elo_womens <- tmp3 %>% \n",
+    "  inner_join(tmp4, by = c(\"Season\", \"TeamID\", \"DayNum\")) %>% \n",
+    "  filter(Season >= 2010) %>% \n",
+    "  select(TeamID, Rating_after, Season) %>% \n",
+    "  rename(Rating = Rating_after) %>% \n",
+    "  left_join(teams_womens, by = c(\"TeamID\")) %>% \n",
+    "  select(TeamID, TeamName, Season, Rating)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "74c19523",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-04-18T02:21:28.608145Z",
+     "iopub.status.busy": "2024-04-18T02:21:28.606402Z",
+     "iopub.status.idle": "2024-04-18T02:21:28.674488Z",
+     "shell.execute_reply": "2024-04-18T02:21:28.672321Z"
+    },
+    "papermill": {
+     "duration": 0.078435,
+     "end_time": "2024-04-18T02:21:28.678012",
+     "exception": false,
+     "start_time": "2024-04-18T02:21:28.599577",
+     "status": "completed"
+    },
+    "tags": [],
+    "vscode": {
+     "languageId": "r"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "elo_mens %>% write_csv(\"/kaggle/working/EloRating_mens_10.csv\")\n",
+    "elo_womens %>% write_csv(\"/kaggle/working/EloRating_womens_10.csv\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "databundleVersionId": 8023814,
+     "sourceId": 70068,
+     "sourceType": "competition"
+    }
+   ],
+   "dockerImageVersionId": 30618,
+   "isGpuEnabled": false,
+   "isInternetEnabled": true,
+   "language": "r",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "R",
+   "language": "R",
+   "name": "ir"
+  },
+  "language_info": {
+   "codemirror_mode": "r",
+   "file_extension": ".r",
+   "mimetype": "text/x-r-source",
+   "name": "R",
+   "pygments_lexer": "r",
+   "version": "4.0.5"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 7652.828285,
+   "end_time": "2024-04-18T02:21:28.807161",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2024-04-18T00:13:55.978876",
+   "version": "2.5.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

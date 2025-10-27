@@ -1,0 +1,2 @@
+The model building folder is getting way too messy and i don't have the energy to tidy it up right now. 
+So i am creating a new folder for model building and deployment.

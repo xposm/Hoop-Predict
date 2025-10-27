@@ -6,6 +6,15 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+# Datasets files are not shared. They are publicly available from Kaggle
+*.csv
+Flaty_Data_Ref/
+Kenpom/
+Massey/
+march-machine-learning-mania-2025/
+Train_set/
+
+
 
 node_modules
 dist

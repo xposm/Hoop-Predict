@@ -1,0 +1,12 @@
+pandas 
+scikit-learn
+catboost
+xgboost
+ipykernel 
+onnx
+onnxscript
+scipy
+matplotlib
+onnxruntime 
+onnxmltools 
+skl2onnx
