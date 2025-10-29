@@ -1,7 +1,7 @@
 # Hoop Predict
 
 This project implements an ensemble machine learning system for predicting NCAA basketball match outcomes, achieving approximately 75% accuracy through a combination of XGBoost, CatBoost, and neural network models.
-### To use the application, You could just download the .exe file from the repo and not worry about anything. Otherwise, check Installation Prerequisites ### 
+### To use the application, go to releases and then download the .exe file. Otherwise, you can build it from source. Check Installation Prerequisites ### 
 
 The weights of the trained models can be found at  *model_building/trained_models*
 
