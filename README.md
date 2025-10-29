@@ -4,7 +4,8 @@ This project implements an ensemble machine learning system for predicting NCAA 
 ### To use the application:
 1. Go to Releases on the right panel
 2. Click v1.0.1
-3. Download hoop-predict-1.0.1.Setup.exe
+3. Download hoop-predict-1.0.1.Setup.exe and click on the file to install. It should then start automatically
+
 Otherwise, you can build it from source. Check Installation Prerequisites 
 
 The weights of the trained models can be found at  *model_building/trained_models*
