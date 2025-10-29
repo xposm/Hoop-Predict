@@ -20,6 +20,7 @@ The weights of the trained models can be found at  *model_building/trained_model
 The project aggregates metrics from two primary sources:
 - **Kenpom**: Comprehensive basketball analytics platform
 - **Massey Ratings**: Collection of various ranking systems
+- **Kaggle Dataset**: Calculated ELO rating for each team in each season from the dataset.
 
 ### Data Standardization Challenges
 
